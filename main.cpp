@@ -14,15 +14,10 @@ double funkcja(double x)
     return 1/(pow(x,2));
 }
 
-int main()
+void obliczanie()
 {
-    setlocale(LC_ALL,"Polish");
-
     const int N = 1000;
     double x_poczatkowe,x_koncowe,suma,dx;
-
-    cout<<"Program obliczjący całkę złożoną metodą trapezów.\n";
-
     cout<<"Podaj x początkowe: ";
     cin>>x_poczatkowe;
 
@@ -39,6 +34,33 @@ int main()
     suma = (suma + (funkcja(x_poczatkowe) + funkcja(x_koncowe)) / 2 ) * dx;
 
     cout<<"Wartość całki wynosi: "<<suma;
+}
 
+void menu_glowne()
+{
+    int wybor = 0;
+    
+    cout<<"Program obliczjący całkę złożoną metodą trapezów.\n";
+
+    cout<<"Menu główne.\n1.Oblicz całkę.\n2.Koniec.\n";
+
+    cin>>wybor;
+
+    if(wybor == 1)
+        obliczanie();
+
+    while(wybor!=2)
+    {
+        cout<<"\nMenu główne.\n1.Oblicz całkę.\n2.Koniec.\n";
+        cin>>wybor;
+        if(wybor == 1)
+            obliczanie();
+    }
+}
+
+int main()
+{
+    setlocale(LC_ALL,"Polish");
+    menu_glowne();
     return 0;
 }
