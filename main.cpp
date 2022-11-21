@@ -8,13 +8,25 @@ Projekt i implementacja programu obliczającego całkę złożoną metodą trape
 
 using namespace std;
 
-// przykładowa funkcja 1/(x^2)
-double funkcja(double x)
+// f(x) = 1/(x^2)
+double wykladnicza(double x)
 {
     return 1/(pow(x,2));
 }
+// f(x) = sin(x)
+double sin_f(double x)
+{
+    double temp = x * M_PI / 180;
+    return sin(temp);
+}
+// f(x) = cos(x)
+double cos_f(double x)
+{
+    double temp = x * M_PI / 180;
+    return cos(temp);
+}
 
-void obliczanie()
+void obliczanie(int w)
 {
     const int N = 1000;
     double x_poczatkowe,x_koncowe,suma,dx;
@@ -24,14 +36,30 @@ void obliczanie()
     cout<<"Podaj x końcowe: ";
     cin>>x_koncowe;
 
+    double (*foo)(double);
+
+    switch (w)
+    {
+    case 1:
+        foo = sin_f;
+        break;
+    case 2:
+        foo = cos_f;
+        break;
+    case 3:
+        foo = wykladnicza;
+    default:
+        break;
+    }
+
     suma = 0;
 
     dx = (x_koncowe - x_poczatkowe) / N;
 
     for(int i = 1; i < N; i++)
-        suma+=funkcja(x_poczatkowe + (i * dx));
+        suma += foo(x_poczatkowe + (i * dx));
 
-    suma = (suma + (funkcja(x_poczatkowe) + funkcja(x_koncowe)) / 2 ) * dx;
+    suma = (suma + (foo(x_poczatkowe) + foo(x_koncowe)) / 2 ) * dx;
 
     cout<<"Wartość całki wynosi: "<<suma;
 }
@@ -42,20 +70,18 @@ void menu_glowne()
     
     cout<<"Program obliczjący całkę złożoną metodą trapezów.\n";
 
-    cout<<"Menu główne.\n1.Oblicz całkę.\n2.Koniec.\n";
-
-    cin>>wybor;
-
-    if(wybor == 1)
-        obliczanie();
-
-    while(wybor!=2)
+    do
     {
-        cout<<"\nMenu główne.\n1.Oblicz całkę.\n2.Koniec.\n";
+        cout<<"\n1Menu główne.\n1.Oblicz całkę.\n2.Koniec.\n";
         cin>>wybor;
         if(wybor == 1)
-            obliczanie();
-    }
+        {
+            cout<<"Jaki rodzaj funkcji:\n1.Sin(x).\n2.Cos(x)\n3.1/x^2.\n";
+            int w2 = 0;
+            cin>>w2;
+            obliczanie(w2);
+        }
+    }while(wybor!=2);
 }
 
 int main()
