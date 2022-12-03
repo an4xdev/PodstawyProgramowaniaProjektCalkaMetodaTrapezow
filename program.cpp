@@ -49,6 +49,23 @@ double logarytm(double x, double *a, double *b, double *c, double *d)
         return *a * (log10(*c * x) / log10(*b));
     }
 }
+// f(x) = a * e^(b * x)
+double exp_f(double x, double *a, double *b)
+{
+    return *a * exp(x * *b);
+}
+
+double sqrt_f(double x, double *a, double *b, double *c)
+{
+    return *a * pow(*b * x, *c);
+}
+
+bool czy_mniejsze(double xp, double xk)
+{
+    if(xp<=xk)
+        return true;
+    return false;
+}
 
 void obliczanie(int w)
 {
@@ -137,6 +154,25 @@ void obliczanie(int w)
             c = new double;
             cin>>*c;
         break;
+        case 7:
+            cout<<"Podaj a (a * e^(b*x)): ";
+            a = new double;
+            cin>>*a;
+            cout<<"Podaj b (a * e^(b*x)): ";
+            b = new double;
+            cin>>*b;
+        break;
+        case 8:
+            cout<<"Podaj a (a * sqrt c stopnia(b * x)): ";
+            a = new double;
+            cin>>*a;
+            cout<<"Podaj b (a * sqrt c stopnia(b * x)): ";
+            b = new double;
+            cin>>*b;
+            cout<<"Podaj stopień c (a * sqrt c stopnia(b * x)): ";
+            c = new double;
+            cin>>*c;
+        break;
     }
 
     cout<<"Podaj ilość trapezów: ";
@@ -153,7 +189,13 @@ void obliczanie(int w)
     cout<<"Podaj x końcowe: ";
     cin>>x_koncowe;
 
-    if(w == 3 & (x_poczatkowe == 0 || x_koncowe == 0))
+    while(!czy_mniejsze(x_poczatkowe, x_koncowe))
+    {
+        cout<<"Podałeś mniejsze x_koncowe niż x_początkowe, podaj nowe: ";
+        cin>>x_koncowe;
+    }
+
+    while(w == 3 && (x_poczatkowe == 0 || x_koncowe == 0))
     {
         if(x_poczatkowe == 0)
         {
@@ -170,22 +212,23 @@ void obliczanie(int w)
                 cout<<"Podałeś argument(końcowy) spoza dziedziny(mianownik nie może być równy 0), podaj nowy: ";
                 cin>>x_koncowe;
             }
+            while()
         }
     }
 
-    if(w == 6 && (x_poczatkowe < 0 || x_koncowe < 0 || (*d == 2 && (*b < 0 || *b == 1)) || *c == 0))
+    while(w == 6 && (x_poczatkowe <= 0 || x_koncowe <= 0 || (*d == 2 && (*b < 0 || *b == 1)) || *c == 0))
     {
-        if(x_poczatkowe < 0)
+        if(x_poczatkowe <= 0)
         {
-            while(x_poczatkowe < 0)
+            while(x_poczatkowe <= 0)
             {
                 cout<<"Podałeś argument(początkowy) spoza dziedziny(x > 0), podaj nowy: ";
                 cin>>x_poczatkowe;
             }
         }
-        if(x_koncowe < 0)
+        if(x_koncowe <= 0)
         {
-            while(x_koncowe < 0)
+            while(x_koncowe <= 0)
             {
                 cout<<"Podałeś argument(końcowe) spoza dziedziny(x > 0), podaj nowy: ";
                 cin>>x_koncowe;
@@ -206,6 +249,22 @@ void obliczanie(int w)
                 cout<<"Argument w logarytmie nie może być mnożony przez 0, podaj nowe c: ";
                 cin>>*c;
             }
+        }
+    }
+
+    while(w == 8 && *c % 2 == 0 && ((x_poczatkowe > 0 && x_poczatkowe < 0) || (x_poczatkowe < 0 && x_koncowe > 0) || (x_poczatkowe > 0 && x_koncowe > 0 && *b < 0) || (x_poczatkowe < 0 && x_koncowe < 0 && *b > 0)))
+    {
+        if(x_poczatkowe > 0 && x_poczatkowe < 0)
+        {
+            int sqrtwybor = 0;
+            double
+            {
+                cout<<"Nie możemy mieć x o różnych znakach. Twoje x_poczatkowe: "<<x_poczatkowe<<", x_koncowe: "<<x_koncowe<<". Co chcesz zmienić:\n1.x_poczatkowe.\n2.x_końcowe.: ";
+                cin>>sqrtwybor;
+            }while(!(sqrtwybor == 1 || sqrtwybor == 2));
+            
+            
+
         }
     }
 
@@ -233,6 +292,9 @@ void obliczanie(int w)
             case 6:
                 suma += logarytm(x_poczatkowe + (i * dx), a, b, c ,d);
             break;
+            case 7:
+                suma += exp_f(x_poczatkowe + (i * dx), a, b);
+            break;
         }
     }
         
@@ -256,6 +318,9 @@ void obliczanie(int w)
         case 6:
             suma = (suma + (logarytm(x_poczatkowe, a, b, c, d) + logarytm(x_koncowe, a, b, c, d)) / 2 ) * dx;
         break;
+        case 7:
+            suma = (suma + (exp_f(x_poczatkowe, a, b) + exp_f(x_koncowe, a, b)) / 2 ) * dx;
+        break;
     }
     
     delete a,b,c,d;
@@ -275,7 +340,7 @@ void menu_glowne()
         cin>>wybor;
         if(wybor == 1)
         {
-            cout<<"Jaki rodzaj funkcji:\n1.Sin(x).\n2.Cos(x)\n3.Wykładnicza: a/b*x^c.\n4.Wielomian.\n5.Potęgowa a*(b^x).\n6.Logarytm a*log_b(c*x).\n";
+            cout<<"Jaki rodzaj funkcji:\n1.Sin(x).\n2.Cos(x)\n3.Wykładnicza: a/b*x^c.\n4.Wielomian.\n5.Potęgowa a*(b^x).\n6.Logarytm a*log_b(c*x).\n7.Potęgowa a*e^(b*x).\n8.Pierwiastek a * sqrt c stopnia(b * x).";
             int w2 = 0;
             cin>>w2;
             obliczanie(w2);

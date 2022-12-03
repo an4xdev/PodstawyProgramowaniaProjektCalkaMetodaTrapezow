@@ -5,3 +5,7 @@ int main()
     menu_glowne();
     return 0;
 }
+// dodać pierwiastek
+// funkcja moduł |x|
+// dodać tan(x)
+// dodać ctan(x)
