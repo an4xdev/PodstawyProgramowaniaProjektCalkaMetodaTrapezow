@@ -47,9 +47,23 @@ double exp_f(double x, double *a, double *b)
 {
     return *a * exp(x * *b);
 }
-
+// f(x) = a*sqrt[c](b*x)
 double sqrt_f(double x, double *a, double *b, double *c)
 {
     return *a * pow(*b * x, *c);
 }
-
+// f(x) = a*|b*x|
+double modul(double x, double *a, double *b)
+{
+    return *a*fabs(*b * x);
+}
+// f(x) = a*tg(b*x)
+double tg(double x, double *a, double *b)
+{
+    return sin_f(x, a, b)/cos_f(x, a, b);
+}
+//
+double ctg(double x, double *a, double *b)
+{
+    return (double)1/tg(x, a, b);
+}

@@ -60,19 +60,39 @@ void sprawdzanie_dziedziny(int w, double *x_poczatkowe, double *x_koncowe, doubl
         }
     }
 
-    // while(w == 8 && *c % 2 == 0 && ((*x_poczatkowe > 0 && *x_poczatkowe < 0) || (*x_poczatkowe < 0 && *x_koncowe > 0) || (*x_poczatkowe > 0 && *x_koncowe > 0 && *b < 0) || (*x_poczatkowe < 0 && *x_koncowe < 0 && *b > 0)))
-    // {
-    //     if(*x_poczatkowe > 0 && *x_poczatkowe < 0)
-    //     {
-    //         int sqrtwybor = 0;
-    //         double
-    //         {
-    //             cout<<"Nie możemy mieć x o różnych znakach. Twoje *x_poczatkowe: "<<*x_poczatkowe<<", *x_koncowe: "<<*x_koncowe<<". Co chcesz zmienić:\n1.*x_poczatkowe.\n2.x_końcowe.: ";
-    //             cin>>sqrtwybor;
-    //         }while(!(sqrtwybor == 1 || sqrtwybor == 2));
-            
-            
-
-    //     }
-    // }
+    while(w == 8 && *c % 2 == 0 && ((*b < 0 && (*x_poczatkowe > 0 || *x_koncowe > 0)) || (*b>0 && (*x_poczatkowe < 0 || *x_koncowe < 0))))
+    {
+        if(*b < 0 && (x_poczatkowe > 0 || x_koncowe > 0)
+        {
+            while(x_poczatkowe > 0 || x_koncowe > 0)
+            {
+                while(*x_poczatkowe > 0)
+                {
+                    cout<<"Twoje x_początkowe nie znajduje się w dziedzinie funkcji(musi być mniejsze od 0), podaj nowe: ";
+                    cin>>*x_poczatkowe;
+                }
+                while(*x_koncowe > 0)
+                {
+                    cout<<"Twoje x_koncowe nie znajduje się w dziedzinie funkcji(musi być mniejsze od 0), podaj nowe: ";
+                    cin>>*x_koncowe;
+                }
+            }
+        }
+        if(*b>0 && (*x_poczatkowe < 0 || *x_koncowe < 0))
+        {
+            while(*x_poczatkowe < 0 || *x_koncowe < 0)
+            {
+                while(*x_poczatkowe < 0)
+                {
+                    cout<<"Twoje x_poczatkowe nie znajduje się w dziedzinie funkcji(musi być większe od 0), podaj nowe: ";
+                    cin>>*x_poczatkowe;
+                }
+                while(*x_koncowe < 0)
+                {
+                    cout<<"Twoje x_koncowe nie znajduje się w dziedzinie funkcji(musi być większe od 0), podaj nowe: ";
+                    cin>>*x_koncowe;
+                }
+            }
+        }
+    }
 }

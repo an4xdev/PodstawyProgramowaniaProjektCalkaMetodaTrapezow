@@ -145,6 +145,24 @@ void wprowadzanie_zmiennych_funkcyjnych(int w, double *a, double *b, double *c, 
             cout<<"Podaj stopień c (a * sqrt c stopnia(b * x)): ";
             cin>>*c;
         break;
+        case 9:
+            cout<<"Podaj a (a*|b*x|): ";
+            cin>>*a;
+            cout<<"Podaj b (a*|b*x|: ";
+            cin>>*b;
+        break;
+        case 10:
+            cout<<"Podaj a (a*tg(b*x): ";
+            cin>>*a;
+            cout<<"Podaj b (a*tg(b*x)): "
+            cin>>*b;
+        break;
+        case 11:
+            cout<<"Podaj a (a*ctg(b*x)): ";
+            cin>>*a;
+            cout<<"Podaj a (a*ctg(b*x)): ";
+            cin>>*b;
+        break;
     }
 }
 
@@ -208,6 +226,30 @@ double sumowanie(int w, int N, double x_poczatkowe, double x_koncowe, double dx,
                 s += wynik;
                 plik<<", suma po: "<<s<<"\n";
             break;
+            case 8:
+                wynik = sqrt_f(x_poczatkowe + (i * dx), a, b, c);
+                plik<<"Suma przed: "<<s<<", wartość funkcji: "<<wynik;
+                s += wynik;
+                plik<<", suma po: "<<s<<"\n";
+            break;
+            case 9:
+                wynik = modul(x_poczatkowe + (i * dx), a, b);
+                plik<<"Suma przed: "<<s<<", wartość funkcji: "<<wynik;
+                s += wynik;
+                plik<<", suma po: "<<s<<"\n";
+            break;
+            case 10:
+                wynik = tg(x_poczatkowe + (i * dx), a, b);
+                plik<<"Suma przed: "<<s<<", wartość funkcji: "<<wynik;
+                s += wynik;
+                plik<<", suma po: "<<s<<"\n";
+            break;
+            case 11:
+                wynik = ctg(x_poczatkowe + (i * dx), a, b);
+                plik<<"Suma przed: "<<s<<", wartość funkcji: "<<wynik;
+                s += wynik;
+                plik<<", suma po: "<<s<<"\n";
+            break;
         }
     }
         
@@ -234,6 +276,18 @@ double sumowanie(int w, int N, double x_poczatkowe, double x_koncowe, double dx,
         case 7:
             s = (s + (exp_f(x_poczatkowe, a, b) + exp_f(x_koncowe, a, b)) / 2 ) * dx;
         break;
+        case 8:
+            s = (s + (sqrt_f(x_poczatkowe, a, b, c) + sqrt_f(x_koncowe, a, b, c)) / 2 ) * dx;
+        break;
+        case 9:
+            s = (s + (modul(x_poczatkowe, a, b) + modul(x_koncowe, a, b)) / 2 ) * dx;
+        break;
+        case 10:
+            s = (s + (tg(x_poczatkowe, a, b) + tg(x_koncowe, a, b)) / 2 ) * dx;
+        break;
+        case 11:
+            s = (s + (ctg(x_poczatkowe, a, b) + ctg(x_koncowe, a, b)) / 2 ) * dx;
+        break;
     }
     plik.close();
     return s;
@@ -251,9 +305,12 @@ void menu_glowne()
         cin>>wybor;
         if(wybor == 1)
         {
-            cout<<"Jaki rodzaj funkcji:\n1.Sin(x).\n2.Cos(x)\n3.Wykładnicza: a/b*x^c.\n4.Wielomian.\n5.Potęgowa a*(b^x).\n6.Logarytm a*log_b(c*x).\n7.Potęgowa a*e^(b*x).\n8.Pierwiastek a * sqrt c stopnia(b * x).\n";
-            int w2 = 0;
-            cin>>w2;
+            do
+            {
+                cout<<"Jaki rodzaj funkcji:\n1.a*Sin(b*x).\n2.a*Cos(b*x)\n3.Wykładnicza: a/b*x^c.\n4.Wielomian.\n5.Potęgowa a*(b^x).\n6.Logarytm a*log_b(c*x).\n7.Potęgowa a*e^(b*x).\n8.Pierwiastek a * sqrt c stopnia(b * x).\n9.Funkcja moduł a*|b*x|.\n10.a*Tg(b*x).\n11.a*Ctg(b*x).\n";
+                int w2 = 0;
+                cin>>w2;
+            }while(w2 < 1 || w2 > 11);
             obliczanie(w2);
         }
     }while(wybor!=2);
@@ -309,6 +366,15 @@ void wpisanie_do_pliku_wzoru(int w, double a, double b, double c, double d, int 
         break;
         case 8:
             plik<<a<<"*sqrt "<<c<<" stopnia("<<b<<"*x)";
+        break;
+        case 9:
+            plik<<a<<"* sqrt["<<c<<"]("<<b<<"*x)";
+        break;
+        case 10:
+            plik<<a<<"*tg("<<b<<"*x)";
+        break;
+        case 11:
+            plik<<a<<"*ctg("<<b<<"*x)";
         break;
     }
     plik<<'\n';
