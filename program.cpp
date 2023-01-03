@@ -25,6 +25,8 @@ void obliczanie(int w);
 
 void menu_glowne();
 
+void wyniki(double suma, int N, double x_poczatkowe, double x_koncowe);
+
 void obliczanie(int w)
 {
     int N = 0;
@@ -55,19 +57,7 @@ void obliczanie(int w)
     if(stopien!=-1)
         delete [] tab;
 
-    cout<<"Wartość całki wynosi: "<<suma;
-    fstream plik;
-
-    plik.open("wyniki.txt", ios::app);
-
-    if(!plik.good())
-    {
-        cout<<"Nie udało się otworzyć pliku.";
-        exit(-1);
-    }
-    plik<<"Po zastosowaniu wzoru: suma = (suma + (f("<<x_poczatkowe<<") + f("<<x_koncowe<<")) / 2) * dx["<<N<<"]\n";
-    plik<<"Wartość całki wynosi: "<<suma;
-    plik.close();
+    wyniki(suma, N, x_poczatkowe, x_koncowe);
 }
 
 void wprowadzanie_zmiennych_funkcyjnych(int w, double *a, double *b, double *c, double *d, int *stopien)
@@ -293,6 +283,23 @@ double sumowanie(int w, int N, double x_poczatkowe, double x_koncowe, double dx,
     return s;
 }
 
+void wyniki(double suma, int N, double x_poczatkowe, double x_koncowe)
+{
+    cout<<"Wartość całki wynosi: "<<suma;
+    fstream plik;
+
+    plik.open("wyniki.txt", ios::app);
+
+    if(!plik.good())
+    {
+        cout<<"Nie udało się otworzyć pliku.";
+        exit(-1);
+    }
+    plik<<"Po zastosowaniu wzoru: suma = (suma + (f("<<x_poczatkowe<<") + f("<<x_koncowe<<")) / 2) * dx["<<N<<"]\n";
+    plik<<"Wartość całki wynosi: "<<suma;
+    plik.close();
+}
+
 void menu_glowne()
 {
     int wybor = 0;
@@ -307,7 +314,7 @@ void menu_glowne()
         {
             do
             {
-                cout<<"Jaki rodzaj funkcji:\n1.a*Sin(b*x).\n2.a*Cos(b*x)\n3.Wykładnicza: a/b*x^c.\n4.Wielomian.\n5.Potęgowa a*(b^x).\n6.Logarytm a*log_b(c*x).\n7.Potęgowa a*e^(b*x).\n8.Pierwiastek a * sqrt c stopnia(b * x).\n9.Funkcja moduł a*|b*x|.\n10.a*Tg(b*x).\n11.a*Ctg(b*x).\n";
+                cout<<"Jaki rodzaj funkcji:\n1.a*Sin(b*x).\n2.a*Cos(b*x)\n3.Wykładnicza: a/b*x^c.\n4.Wielomian.\n5.Potęgowa a*(b^x).\n6.Logarytm a*log_b(c*x).\n7.Potęgowa a*e^(b*x).\n8.Pierwiastek a*sqrt[c]stopnia(b*x).\n9.Funkcja moduł a*|b*x|.\n10.a*Tg(b*x).\n11.a*Ctg(b*x).\n";
                 int w2 = 0;
                 cin>>w2;
             }while(w2 < 1 || w2 > 11);
