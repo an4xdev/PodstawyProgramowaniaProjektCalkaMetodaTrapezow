@@ -3,30 +3,29 @@ int main()
 {
     setlocale(LC_ALL, "Polish");
     int w = menu_glowne();
-    int N = 0;
-    double x_poczatkowe, x_koncowe, suma = 0, dx;
-    double a, b, c, d;
-    int stopien = -1;
-    double *tab;
-    wprowadzanie_zmiennych_funkcyjnych(w, &a, &b, &c, &d, &stopien);
-    if (stopien != -1)
+    Funkcja f;
+    f.N = 0;
+    f.suma = 0;
+    f.stopien = -1;
+    wprowadzanie_zmiennych_funkcyjnych(w, &f);
+    if (f.stopien != -1)
     {
-        tab = new double[stopien];
-        uzupelnij_wielomian(tab, stopien);
+        f.tab = new double[f.stopien];
+        uzupelnij_wielomian(&f);
     }
-    wprowadzanie_x(&N, &x_poczatkowe, &x_koncowe);
+    wprowadzanie_x(&f);
 
-    sprawdzanie_dziedziny(w, &x_poczatkowe, &x_koncowe, &b, &c, &d);
+    sprawdzanie_dziedziny(w, &f);
 
-    wpisanie_do_pliku_wzoru(w, a, b, c, d, stopien, tab);
+    wpisanie_do_pliku_wzoru(w, &f);
 
-    dx = (x_koncowe - x_poczatkowe) / N;
+    f.dx = (f.x_koncowe - f.x_poczatkowe) / f.N;
 
-    suma = sumowanie(w, N, x_poczatkowe, x_koncowe, dx, &a, &b, &c, &d, tab, stopien);
+    f.suma = sumowanie(w, &f);
 
-    if (stopien != -1)
-        delete[] tab;
+    if (f.stopien != -1)
+        delete[] f.tab;
 
-    wyniki(suma, N, x_poczatkowe, x_koncowe);
+    wyniki(&f);
     return 0;
 }
