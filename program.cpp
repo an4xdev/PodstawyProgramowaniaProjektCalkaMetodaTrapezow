@@ -140,69 +140,69 @@ double sumowanie(int w, Funkcja *f)
         {
         case 1:
             wynik = sin_f(f->x_poczatkowe + (i * f->dx), f);
-            plik << "Suma przed: " << s << ", wartość funkcji: " << wynik;
+
             s += wynik;
-            plik << ", suma po: " << s << "\n";
+
             break;
         case 2:
             wynik = cos_f(f->x_poczatkowe + (i * f->dx), f);
-            plik << "Suma przed: " << s << ", wartość funkcji: " << wynik;
+
             s += wynik;
-            plik << ", suma po: " << s << "\n";
+
             break;
         case 3:
             wynik = wykladnicza(f->x_poczatkowe + (i * f->dx), f);
-            plik << "Suma przed: " << s << ", wartość funkcji: " << wynik;
+
             s += wynik;
-            plik << ", suma po: " << s << "\n";
+
             break;
         case 4:
             wynik = wielomian(f->x_poczatkowe + (i * f->dx), f);
-            plik << "Suma przed: " << s << ", wartość funkcji: " << wynik;
+
             s += wynik;
-            plik << ", suma po: " << s << "\n";
+
             break;
         case 5:
             wynik = potegowa(f->x_poczatkowe + (i * f->dx), f);
-            plik << "Suma przed: " << s << ", wartość funkcji: " << wynik;
+
             s += wynik;
-            plik << ", suma po: " << s << "\n";
+
             break;
         case 6:
             wynik = logarytm(f->x_poczatkowe + (i * f->dx), f);
-            plik << "Suma przed: " << s << ", wartość funkcji: " << wynik;
+
             s += wynik;
-            plik << ", suma po: " << s << "\n";
+
             break;
         case 7:
             wynik = exp_f(f->x_poczatkowe + (i * f->dx), f);
-            plik << "Suma przed: " << s << ", wartość funkcji: " << wynik;
+
             s += wynik;
-            plik << ", suma po: " << s << "\n";
+
             break;
         case 8:
             wynik = sqrt_f(f->x_poczatkowe + (i * f->dx), f);
-            plik << "Suma przed: " << s << ", wartość funkcji: " << wynik;
+
             s += wynik;
-            plik << ", suma po: " << s << "\n";
+
             break;
         case 9:
             wynik = modul(f->x_poczatkowe + (i * f->dx), f);
-            plik << "Suma przed: " << s << ", wartość funkcji: " << wynik;
+
             s += wynik;
-            plik << ", suma po: " << s << "\n";
+
             break;
         case 10:
             wynik = tg(f->x_poczatkowe + (i * f->dx), f);
-            plik << "Suma przed: " << s << ", wartość funkcji: " << wynik;
+
             s += wynik;
-            plik << ", suma po: " << s << "\n";
+
             break;
         case 11:
             wynik = ctg(f->x_poczatkowe + (i * f->dx), f);
-            plik << "Suma przed: " << s << ", wartość funkcji: " << wynik;
+
             s += wynik;
-            plik << ", suma po: " << s << "\n";
+
             break;
         }
     }
@@ -259,8 +259,7 @@ void wyniki(Funkcja *f)
         cout << "Nie udało się otworzyć pliku.";
         exit(-1);
     }
-    plik << "Po zastosowaniu wzoru: suma = (suma + (f(" << f->x_poczatkowe << ") + f(" << f->x_koncowe << ")) / 2) * dx[" << f->N << "]\n";
-    plik << "Wartość całki wynosi: " << f->suma;
+    plik << "Wartość całki wynosi dla " << f->N << " trapezów wynosi: " << f->suma;
     plik.close();
 }
 
@@ -281,6 +280,8 @@ int menu_glowne()
                 cin >> w2;
             } while (w2 < 1 || w2 > 11);
         }
+        else if (wybor == 2)
+            exit(0);
     } while (wybor < 1 || wybor > 2);
     return w2;
 }
@@ -386,5 +387,22 @@ void uzupelnij_wielomian(Funkcja *f)
     {
         cout << "Podaj a" << i << ": ";
         cin >> f->tab[i];
+    }
+}
+
+void tablica_wielomian(Funkcja *f, bool tworzenie)
+{
+    if (tworzenie)
+    {
+        if (f->stopien != -1)
+        {
+            f->tab = new double[f->stopien];
+            uzupelnij_wielomian(f);
+        }
+    }
+    else
+    {
+        if (f->stopien != -1)
+            delete[] f->tab;
     }
 }

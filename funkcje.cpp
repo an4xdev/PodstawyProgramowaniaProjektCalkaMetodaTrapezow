@@ -15,14 +15,12 @@ double wykladnicza(double x, Funkcja *f)
 // f(x) = a*sin(b*x)
 double sin_f(double x, Funkcja *f)
 {
-    double temp = (x * M_PI) / 180;
-    return f->a * sin(f->b * temp);
+    return f->a * sin(f->b * x);
 }
 // f(x) = a*cos(b*x)
 double cos_f(double x, Funkcja *f)
 {
-    double temp = x * M_PI / 180;
-    return f->a * cos(f->b * temp);
+    return f->a * cos(f->b * x);
 }
 // f(x) = a_n * x^n + a_n-1 * x^n-1 |+ ...
 double wielomian(double x, Funkcja *f)
