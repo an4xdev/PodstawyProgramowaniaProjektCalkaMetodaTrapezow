@@ -1,0 +1,6 @@
+Twój wzór funkcji: 1 * sin( 1 * x )
+Wartość całki wynosi dla 500 trapezów oraz x początkowego: 0 i x końcowego: 3.14 wynosi: 1.99999
+Twój wzór funkcji: 1 / 1 * x^1
+Wartość całki wynosi dla 1000 trapezów oraz x początkowego: 1 i x końcowego: 5 wynosi: 1.60944
+Twój wzór funkcji: 1 * sin( 1 * x )
+Wartość całki wynosi dla 1000 trapezów oraz x początkowego: 0 i x końcowego: 3.14 wynosi: 2
